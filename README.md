@@ -1,6 +1,4 @@
----
-
-# Vous créerez un repo Git sur lequel vous placerez votre projet, vous n'aurez plus qu'à me soumettre le lien du git.
+**Vous créerez un repo Git sur lequel vous placerez votre projet, vous n'aurez plus qu'à me soumettre le lien du git.**
 
 ---
 
