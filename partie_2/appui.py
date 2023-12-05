@@ -140,7 +140,7 @@ class App:
         Sauvegarde le rapport d'audit dans un fichier texte. 
         Permet à l'utilisateur de choisir l'emplacement et le nom du fichier.
         """
-        if not self.details_text.get("1.0", tk.END):
+        if len(self.details_text.get("1.0", tk.END)) == 1:
             messagebox.showerror("Erreur", "Aucun rapport d'audit n'est disponible pour sauvegarde")
             return
         filename = filedialog.asksaveasfilename(
