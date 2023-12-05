@@ -1,6 +1,5 @@
 from collections import Counter
 import re
-from collections import Counter
 import csv
 from bs4 import BeautifulSoup
 import requests
@@ -111,18 +110,17 @@ def audit_page(url):
     occurrences = compter_occurrences(texte)
     mots_parasites = recuperer_parasites("parasites.csv")
     mots_cles = retirer_parasites(occurrences, mots_parasites)
-    
+
     print("Mots clés avec les 3 premières valeurs d'occurrences :")
     for mot, occ in list(mots_cles.items())[:3]:
         print(f"{mot}: {occ}")
-    
+
     liens = extraire_attributs(html, 'a', 'href')
-    liens_entrants = [lien for lien in liens if lien.startswith(url)]
-    liens_sortants = [lien for lien in liens if not lien.startswith(url)]
-    
+    liens_entrants, liens_sortants = classifier_par_domaine(extraire_nom_domaine(url), liens)
+
     print(f"Nombre de liens entrants: {len(liens_entrants)}")
     print(f"Nombre de liens sortants: {len(liens_sortants)}")
-    
+
     alts = extraire_attributs(html, 'img', 'alt')
     print(f"Présence de balises alt: {alts if alts else 'Non'}")
 
