@@ -52,6 +52,7 @@ class App:
         self.menu_bar = tk.Menu(master)
         file_menu = tk.Menu(self.menu_bar, tearoff=0)
         file_menu.add_command(label="Mots parasites", command=self.update_badwords)
+        file_menu.add_command(label="Sauvegarder Rapport", command=self.save)
         self.menu_bar.add_cascade(label="Fichier", menu=file_menu)
         self.master.config(menu=self.menu_bar)
         self.label_url = tk.Label(master, text="Entrer l'URL à auditer :")
@@ -69,8 +70,6 @@ class App:
         self.details_text = tk.Text(self.second_frame)
         self.details_label.pack()
         self.details_text.pack(fill=tk.BOTH, expand=True)
-        self.save_btn = tk.Button(self.second_frame, text="Sauvegarder", command=self.save)
-        self.save_btn.pack(side=tk.RIGHT, padx=10)
 
 
     def analyse(self):
@@ -141,6 +140,9 @@ class App:
         Sauvegarde le rapport d'audit dans un fichier texte. 
         Permet à l'utilisateur de choisir l'emplacement et le nom du fichier.
         """
+        if not self.details_text.get("1.0", tk.END):
+            messagebox.showerror("Erreur", "Aucun rapport d'audit n'est disponible pour sauvegarde")
+            return
         filename = filedialog.asksaveasfilename(
             defaultextension=".txt",
             filetypes=[("Text file", ".txt"), ("All Files", ".*")],
